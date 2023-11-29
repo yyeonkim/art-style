@@ -1,1 +1,1 @@
-console.log("hi");
+const header = document.querySelector("header");

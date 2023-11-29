@@ -11,6 +11,18 @@ app.use(express.static("dist"));
 app.get("/", (req: Request, res: Response) => {
   res.render("home");
 });
+app.get("/search", (req: Request, res: Response) => {
+  res.render("search");
+});
+app.get("/result", (req: Request, res: Response) => {
+  res.render("result");
+});
+app.get("/art-detail", (req: Request, res: Response) => {
+  res.render("art-detail");
+});
+app.get("/artist", (req: Request, res: Response) => {
+  res.render("artist");
+});
 
 app.listen(port, () => {
   console.log(`🎉 Server is listening on port:${port}`);
