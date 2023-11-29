@@ -20,7 +20,9 @@ module.exports = {
       // TS 파일 로더 설정
       {
         test: /\.ts?$/,
-        use: "ts-loader",
+        use: {
+          loader: "babel-loader",
+        },
         exclude: /node_modules/,
       },
       // Sass 파일 로더 설정
