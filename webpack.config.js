@@ -1,6 +1,6 @@
-import developmentConfig from "./webpack.dev.config.js";
-import productionConfig from "./webpack.prod.config.js";
+const developmentConfig = require("./webpack.dev.config.js");
+const productionConfig = require("./webpack.prod.config.js");
 
-export default (env, { mode }) => {
+module.exports = (env, { mode }) => {
   return mode === "production" ? productionConfig : developmentConfig;
 };

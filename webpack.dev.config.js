@@ -1,9 +1,8 @@
-import path from "path";
-const __dirname = path.resolve();
+const path = require("path");
 
 const BASE_TS = "./src/client/ts";
 
-export default {
+module.exports = {
   mode: "development",
   entry: `${BASE_TS}/main.ts`,
   output: {

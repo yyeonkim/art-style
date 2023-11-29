@@ -1,13 +1,12 @@
-import path from "path";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import TerserPlugin from "terser-webpack-plugin";
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const __dirname = path.resolve();
 const BASE_TS = "./src/client/ts";
 
-export default {
+module.exports = {
   mode: "production",
   entry: `${BASE_TS}/main.ts`,
   plugins: [
