@@ -6,6 +6,7 @@ const port = 5000;
 app.set("view engine", "pug");
 app.set("views", "./src/views");
 app.use(express.json());
+app.use(express.static("dist"));
 
 app.get("/", (req: Request, res: Response) => {
   res.render("home");

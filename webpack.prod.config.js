@@ -17,23 +17,21 @@ module.exports = {
   ],
   module: {
     rules: [
-      // TS 파일 로더 설정
       {
-        test: /\.ts?$/,
+        test: /\.ts$/,
         use: {
           loader: "babel-loader",
         },
         exclude: /node_modules/,
       },
-      // Sass 파일 로더 설정
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
   output: {
     path: path.resolve(__dirname, "dist"),

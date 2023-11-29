@@ -1,26 +1,28 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
 
 const BASE_TS = "./src/client/ts";
 
 module.exports = {
   mode: "development",
   entry: `${BASE_TS}/main.ts`,
+  output: {
+    path: path.resolve(__dirname, "dist", "js"),
+    filename: "[name].js",
+  },
   module: {
     rules: [
-      // TS 파일 로더 설정
       {
         test: /\.ts?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
-      // Sass 파일 로더 설정
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
 };
