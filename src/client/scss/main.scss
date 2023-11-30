@@ -1,3 +1,17 @@
+@import "./config/reset.scss";
+@import "./config/variable.scss";
+@import "./components/header.scss";
+
 .hidden {
   visibility: hidden;
+}
+
+html {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+}
+
+body {
+  font-size: $medium_size;
+  background-color: aqua;
 }
