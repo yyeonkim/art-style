@@ -1,9 +1,17 @@
+// config
 @import "./config/reset.scss";
 @import "./config/variable.scss";
+
+// components
 @import "./components/header.scss";
+@import "./components/category.scss";
 
 .hidden {
   visibility: hidden;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px $shadow_color;
 }
 
 html {
@@ -13,5 +21,4 @@ html {
 
 body {
   font-size: $medium_size;
-  background-color: aqua;
 }

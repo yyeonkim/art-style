@@ -4,7 +4,11 @@ const BASE_TS = "./src/client/ts";
 
 module.exports = {
   mode: "development",
-  entry: `${BASE_TS}/main.ts`,
+  entry: {
+    main: `${BASE_TS}/main.ts`,
+    header: `${BASE_TS}/header.ts`,
+    category: `${BASE_TS}/category.ts`,
+  },
   output: {
     path: path.resolve(__dirname, "dist", "js"),
     filename: "[name].js",
