@@ -1,0 +1,25 @@
+nav {
+  display: flex;
+  justify-content: center;
+  font-size: $small_size;
+  box-shadow: 0 2px 5px $shadow_color;
+  position: sticky;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 5%;
+
+    li {
+      cursor: pointer;
+    }
+
+    li#selected {
+      font-weight: 700;
+      text-decoration: underline;
+    }
+  }
+}
