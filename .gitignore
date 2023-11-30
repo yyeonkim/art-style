@@ -4,3 +4,4 @@
 .env
 /transpile
 /src/db
+/secure

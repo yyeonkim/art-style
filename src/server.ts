@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import { generateSignedUrl } from "./db";
 
 const app: Express = express();
 const port = 5000;
@@ -7,6 +8,8 @@ app.set("view engine", "pug");
 app.set("views", "./src/views");
 app.use(express.json());
 app.use(express.static("dist"));
+
+generateSignedUrl().catch(console.error);
 
 app.get("/", (req: Request, res: Response) => {
   res.render("home");
