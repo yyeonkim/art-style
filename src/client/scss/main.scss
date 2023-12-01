@@ -5,6 +5,10 @@
 // components
 @import "./components/header.scss";
 @import "./components/category.scss";
+@import "./components/art-work.scss";
+
+// screens
+@import "./screens/home.scss";
 
 .hidden {
   visibility: hidden;

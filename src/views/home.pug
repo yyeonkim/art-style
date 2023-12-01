@@ -4,7 +4,7 @@ include mixins/art-work
 block content 
     include partials/category
 
-    div    
-        each artwork in artWorks   
-            +artWork(artwork)
-    
+    main.home__main
+        div.home__list    
+            each artWork in artWorks
+                +artWork(artWork)
