@@ -1,4 +1,10 @@
 extends base
+include mixins/art-work
 
 block content 
     include partials/category
+
+    div    
+        each artwork in artWorks   
+            +artWork(artwork)
+    

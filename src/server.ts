@@ -1,4 +1,6 @@
 import express, { Express, Request, Response } from "express";
+import { getArtWorks } from "./db";
+import { LABEL } from "./constants";
 
 const app: Express = express();
 const port = 5000;
@@ -8,8 +10,10 @@ app.set("views", "./src/views");
 app.use(express.json());
 app.use(express.static("dist"));
 
-app.get("/", (req: Request, res: Response) => {
-  res.render("home");
+app.get("/", async (req: Request, res: Response) => {
+  const artWorks = await getArtWorks(LABEL.CAMILLE_PISSARRO);
+
+  res.render("home", { artWorks });
 });
 app.get("/search", (req: Request, res: Response) => {
   res.render("search");
