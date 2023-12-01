@@ -1,5 +1,6 @@
 import { Storage, File } from "@google-cloud/storage";
 import { ARTIST, CATEGORY, LABEL } from "./constants";
+import { IArtWork } from "./types";
 
 const projectId = process.env.PROJECT_ID;
 const keyFilename = "secure/gcs-key-filename.json";
@@ -10,12 +11,12 @@ const storage = new Storage({
 });
 const bucketName = "art-work-bucket";
 
-async function getArtWorks(folderName: string) {
+async function getFiles(folderName: string): Promise<IArtWork[]> {
   const [files] = await storage
     .bucket(bucketName)
     .getFiles({ prefix: folderName });
 
-  const artWorks = files.map((file: File) => {
+  return files.map((file: File) => {
     return {
       name: file.name,
       category: CATEGORY.IMPRESSIONIST,
@@ -24,8 +25,6 @@ async function getArtWorks(folderName: string) {
       label: [LABEL.IMPRESSIONIST, LABEL.CAMILLE_PISSARRO],
     };
   });
-
-  return artWorks;
 }
 
-export { getArtWorks };
+export { getFiles };
