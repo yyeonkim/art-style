@@ -9,6 +9,7 @@ module.exports = {
     header: `${BASE_TS}/header.ts`,
     category: `${BASE_TS}/category.ts`,
     home: `${BASE_TS}/home.ts`,
+    search: `${BASE_TS}/search.ts`,
   },
   output: {
     path: path.resolve(__dirname, "dist", "js"),

@@ -1,10 +1,9 @@
 import { Storage, File } from "@google-cloud/storage";
 import { ARTIST, CATEGORY, LABEL } from "./constants";
 import { IArtWork } from "./types";
+import { projectId } from "./env";
 
-const projectId = process.env.PROJECT_ID;
 const keyFilename = "secure/gcs-key-filename.json";
-
 const storage = new Storage({
   projectId,
   keyFilename,
