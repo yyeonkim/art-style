@@ -1,4 +1,9 @@
 extends base
 
 block content 
-    h1 Search
+    main.search__main      
+        form.search__form(action="") 
+            input(type="text" method="get" placeholder="이미지 링크를 입력하세요.")
+            button(type="submit") 검색
+        div.dropZone 
+            p 또는 이미지를 여기로 드래그하세요.
