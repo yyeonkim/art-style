@@ -4,10 +4,10 @@ function selectList(event: Event) {
   const prev = document.getElementById("selected");
   const target = event.target as HTMLInputElement;
 
-  if (prev && target && prev !== target) {
+  if (prev && prev !== target) {
     prev.id = "";
-    target.id = "selected";
   }
+  target.id = "selected";
 }
 
 ul?.addEventListener("click", selectList);
