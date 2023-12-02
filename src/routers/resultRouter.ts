@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { IArtWork } from "../types";
-import { getResult } from "../controller/result";
+import { getResult } from "../controller/searchController";
 
 const resultRouter = express.Router();
 

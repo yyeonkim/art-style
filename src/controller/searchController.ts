@@ -2,8 +2,14 @@ import { Request, Response } from "express";
 import axios from "axios";
 import fs from "fs";
 import { apiKey } from "../env";
+import { getFiles } from "../db";
+import { IArtWork } from "../types";
 
 const url = "https://classify.roboflow.com/art-style-and-artist-ljptt/1";
+
+function renderSearch(req: Request, res: Response) {
+  res.render("search");
+}
 
 /* Roboflow에서 분석한 결과를 json으로 전달 */
 async function searchUrl(req: Request, res: Response) {
@@ -49,4 +55,23 @@ async function postRoboflow(data: string) {
   return response;
 }
 
-export { searchUrl, searchFile, convertToBase64, postRoboflow };
+/* 각 라벨(클래스)마다 저장소에서 이미지 가져오기 */
+async function getResult(labels: string[]) {
+  const result: IArtWork[] = [];
+
+  for (const label of labels) {
+    const files = await getFiles(label);
+    result.push(...files);
+  }
+
+  return result;
+}
+
+export {
+  renderSearch,
+  searchUrl,
+  searchFile,
+  convertToBase64,
+  postRoboflow,
+  getResult,
+};

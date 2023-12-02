@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
-import { convertToBase64, postRoboflow } from "../controller/roboflow";
-import { getResult } from "../controller/result";
+import { convertToBase64, getResult, postRoboflow } from "./searchController";
+import { getFiles } from "../db";
+import { LABEL } from "../constants";
+
+async function getHomeArtWork(req: Request, res: Response) {
+  const artWorks = await getFiles(LABEL.IMPRESSIONIST);
+
+  res.render("home", { artWorks });
+}
 
 async function getDetail(req: Request, res: Response) {
   const url = req.query.target;
@@ -12,4 +19,4 @@ async function getDetail(req: Request, res: Response) {
   res.render("art-detail", { url, artWorks });
 }
 
-export { getDetail };
+export { getHomeArtWork, getDetail };

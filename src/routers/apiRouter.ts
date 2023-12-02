@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import multer from "multer";
 import { getFiles } from "../db";
-import { searchFile, searchUrl } from "../controller/roboflow";
-import { getResult } from "../controller/result";
+import { searchFile, searchUrl } from "../controller/searchController";
+import { getResult } from "../controller/searchController";
 
 const apiRouter = express.Router();
 const upload = multer({ dest: "uploads/" });
