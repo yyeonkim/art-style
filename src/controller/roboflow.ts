@@ -5,6 +5,7 @@ import { apiKey } from "../env";
 
 const url = "https://classify.roboflow.com/art-style-and-artist-ljptt/1";
 
+/* Roboflow에서 분석한 결과를 json으로 전달 */
 async function searchUrl(req: Request, res: Response) {
   const imageUrl = req.body.image;
   const base64 = await convertToBase64(imageUrl);

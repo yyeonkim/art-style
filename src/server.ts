@@ -26,7 +26,8 @@ app.get("/search", (req: Request, res: Response) => {
   res.render("search");
 });
 app.get("/result", (req: Request, res: Response) => {
-  res.render("result");
+  const data = req.body;
+  res.render("result", { data });
 });
 app.get("/art-detail", (req: Request, res: Response) => {
   res.render("art-detail");
