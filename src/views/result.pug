@@ -1,4 +1,11 @@
 extends base
+include mixins/art-work
 
 block content 
-    h1 Result
+    main.result__main
+        div.target
+            h1 검색한 이미지
+            img(src=url)
+        div.list
+            each artWork in artWorks
+                +artWork(artWork)

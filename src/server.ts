@@ -1,8 +1,9 @@
 import express, { Express, Request, Response } from "express";
+import cors from "cors";
 import { getFiles } from "./db";
 import { LABEL } from "./constants";
 import apiRouter from "./routers/apiRouter";
-import cors from "cors";
+import resultRouter from "./routers/resultRouter";
 
 const app: Express = express();
 const port = 5000;
@@ -21,14 +22,12 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.use("/api", apiRouter);
+app.use("/result", resultRouter);
 
 app.get("/search", (req: Request, res: Response) => {
   res.render("search");
 });
-app.get("/result", (req: Request, res: Response) => {
-  const data = req.body;
-  res.render("result", { data });
-});
+
 app.get("/art-detail", (req: Request, res: Response) => {
   res.render("art-detail");
 });

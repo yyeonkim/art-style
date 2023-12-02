@@ -24,11 +24,11 @@ async function postImageUrl(image: string) {
   return data;
 }
 
-function passResult(image: string | File, result: JSON) {
-  fetch("/api/result", {
+async function passResult(imageUrl: string, result: JSON) {
+  fetch("/result", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image, result }),
+    body: JSON.stringify({ image: imageUrl, result }),
   }).then(() => location.assign("/result"));
 }
 
@@ -36,8 +36,11 @@ async function dropFile(event: DragEvent) {
   event.preventDefault();
 
   const file = event.dataTransfer?.files[0];
+  const blobUrl = URL.createObjectURL(file as Blob);
   const data = await postImage(file as File);
-  passResult(file as File, data);
+
+  passResult(blobUrl, data);
+  //URL.revokeObjectURL(blobUrl);
 }
 
 async function postImage(image: File) {
