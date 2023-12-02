@@ -9,9 +9,9 @@
     justify-content: center;
     padding: 0 2rem;
     position: sticky;
-    top: 5rem;
+    top: header_height;
     left: 0rem;
-    height: calc(100vh - 5rem);
+    height: calc(100vh - $header_height);
     gap: 2rem;
 
     h1 {
