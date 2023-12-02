@@ -49,4 +49,4 @@ async function postRoboflow(data: string) {
   return response;
 }
 
-export { searchUrl, searchFile };
+export { searchUrl, searchFile, convertToBase64, postRoboflow };

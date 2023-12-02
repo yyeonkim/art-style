@@ -25,11 +25,11 @@ async function postImageUrl(image: string) {
 }
 
 async function passResult(imageUrl: string, result: JSON) {
-  fetch("/result", {
+  await fetch("/result", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ image: imageUrl, result }),
-  }).then(() => location.assign("/result"));
+  });
 }
 
 async function dropFile(event: DragEvent) {
@@ -39,8 +39,8 @@ async function dropFile(event: DragEvent) {
   const blobUrl = URL.createObjectURL(file as Blob);
   const data = await postImage(file as File);
 
-  passResult(blobUrl, data);
-  //URL.revokeObjectURL(blobUrl);
+  await passResult(blobUrl, data);
+  location.assign("/result");
 }
 
 async function postImage(image: File) {

@@ -5,7 +5,10 @@ block content
     main.result__main
         div.target
             h1 검색한 이미지
-            img(src=url)
+            img.target__img(src=url)
         div.list
             each artWork in artWorks
                 +artWork(artWork)
+
+block scripts 
+    script(src="/js/result.js")

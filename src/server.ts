@@ -4,6 +4,7 @@ import { getFiles } from "./db";
 import { LABEL } from "./constants";
 import apiRouter from "./routers/apiRouter";
 import resultRouter from "./routers/resultRouter";
+import artDetailRouter from "./routers/artDetailRouter";
 
 const app: Express = express();
 const port = 5000;
@@ -23,13 +24,10 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.use("/api", apiRouter);
 app.use("/result", resultRouter);
+app.use("/art-detail", artDetailRouter);
 
 app.get("/search", (req: Request, res: Response) => {
   res.render("search");
-});
-
-app.get("/art-detail", (req: Request, res: Response) => {
-  res.render("art-detail");
 });
 app.get("/artist", (req: Request, res: Response) => {
   res.render("artist");

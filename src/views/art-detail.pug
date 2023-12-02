@@ -1,4 +1,20 @@
 extends base
+include mixins/art-work
 
 block content 
-    h1 Art Detail
+    main.artDetail__main 
+        div.target
+            img.target__img(src=url)
+            div.artist
+                div.artist__info
+                    img(src="https://www.dorotheum.com/fileadmin/lot-images/38N171205/normal/kuenstler-19-jahrhundert-202732.jpg")
+                    div
+                        span 작가 이름
+                        span 인상주의 화가 | 팔로워 320명
+                button 팔로우
+
+        div.artDetail__list
+            h1 다른 유사한 작품
+            div
+                each artWork in artWorks
+                    +artWork(artWork)
