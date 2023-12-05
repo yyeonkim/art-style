@@ -1,8 +1,11 @@
+import { endLoading, startLoading } from "./loader";
+
 const form = document.querySelector(".search__form");
 const dropZone = document.querySelector(".dropZone");
 
 async function submitUrl(event: Event) {
   event.preventDefault();
+  startLoading();
 
   const input: HTMLInputElement | null =
     document.querySelector(".search__input");
@@ -10,7 +13,10 @@ async function submitUrl(event: Event) {
   if (input) {
     const url = input.value;
     const data = await postImageUrl(url);
-    passResult(url, data);
+
+    await passResult(url, data);
+    endLoading();
+    location.assign("/result");
   }
 }
 
@@ -34,12 +40,14 @@ async function passResult(imageUrl: string, result: JSON) {
 
 async function dropFile(event: DragEvent) {
   event.preventDefault();
+  startLoading();
 
   const file = event.dataTransfer?.files[0];
   const blobUrl = URL.createObjectURL(file as Blob);
   const data = await postImage(file as File);
 
   await passResult(blobUrl, data);
+  endLoading();
   location.assign("/result");
 }
 

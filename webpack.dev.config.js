@@ -11,6 +11,7 @@ module.exports = {
     home: `${BASE_TS}/home.ts`,
     search: `${BASE_TS}/search.ts`,
     artwork: `${BASE_TS}/artwork.ts`,
+    loader: `${BASE_TS}/loader.ts`,
   },
   output: {
     path: path.resolve(__dirname, "dist", "js"),

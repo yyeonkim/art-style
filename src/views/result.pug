@@ -1,5 +1,5 @@
 extends base
-include mixins/art-work
+include mixins/artwork
 
 block content 
     main.result__main
@@ -7,8 +7,8 @@ block content
             h1 검색한 이미지
             img.target__img(src=url)
         div.list
-            each artWork in artWorks
-                +artWork(artWork)
+            each artwork in artworks
+                +artwork(artwork)
 
 block scripts 
     script(src="/js/result.js")
