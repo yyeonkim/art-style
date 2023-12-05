@@ -14,11 +14,12 @@
   }
 
   .target__img {
-    width: 44rem;
+    min-height: 42rem;
+    max-height: 58rem;
   }
 
   .artist {
-    width: 44rem;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
