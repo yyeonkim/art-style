@@ -4,9 +4,9 @@ import { getFiles } from "../db";
 import { LABEL } from "../constants";
 
 async function getHomeArtWork(req: Request, res: Response) {
-  const artWorks = await getFiles(LABEL.IMPRESSIONIST);
+  const artworks = await getFiles(LABEL.IMPRESSIONIST);
 
-  res.render("home", { artWorks });
+  res.render("home", { artworks });
 }
 
 async function getDetail(req: Request, res: Response) {
@@ -14,9 +14,9 @@ async function getDetail(req: Request, res: Response) {
   const base64 = await convertToBase64(url as string);
   const response = await postRoboflow(base64);
   const labels = response.data.predicted_classes;
-  const artWorks = await getResult(labels);
+  const artworks = await getResult(labels);
 
-  res.render("art-detail", { url, artWorks });
+  res.render("art-detail", { url, artworks });
 }
 
 export { getHomeArtWork, getDetail };

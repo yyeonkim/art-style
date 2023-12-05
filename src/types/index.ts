@@ -1,4 +1,4 @@
-interface IArtWork {
+interface IArtwork {
   name: string;
   category: string;
   url: string;
@@ -6,4 +6,4 @@ interface IArtWork {
   label: string[];
 }
 
-export { IArtWork };
+export { IArtwork };

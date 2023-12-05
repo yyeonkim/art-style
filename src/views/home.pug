@@ -1,13 +1,13 @@
 extends base
-include mixins/art-work
+include mixins/artwork
 
 block content 
     include partials/category
 
     main.home__main
         div.home__list    
-            each artWork in artWorks
-                +artWork(artWork)
+            each artwork in artworks
+                +artwork(artwork)
 
 block scripts 
     script(src="/js/home.js")

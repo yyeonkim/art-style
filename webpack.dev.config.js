@@ -10,7 +10,7 @@ module.exports = {
     category: `${BASE_TS}/category.ts`,
     home: `${BASE_TS}/home.ts`,
     search: `${BASE_TS}/search.ts`,
-    artWork: `${BASE_TS}/artWork.ts`,
+    artwork: `${BASE_TS}/artwork.ts`,
   },
   output: {
     path: path.resolve(__dirname, "dist", "js"),

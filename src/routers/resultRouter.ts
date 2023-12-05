@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
-import { IArtWork } from "../types";
+import { IArtwork } from "../types";
 import { getResult } from "../controller/searchController";
 
 const resultRouter = express.Router();
 
 let url = "";
-let artWorks: IArtWork[] = [];
+let artworks: IArtwork[] = [];
 
 resultRouter.post("/", async (req: Request, res: Response) => {
   const data = req.body;
@@ -13,13 +13,13 @@ resultRouter.post("/", async (req: Request, res: Response) => {
 
   // 각 라벨(클래스)마다 저장소에서 이미지 가져오기
   const labels = data.result.predicted_classes;
-  artWorks = await getResult(labels);
+  artworks = await getResult(labels);
 
   res.send("ok");
 });
 
 resultRouter.get("/", (req: Request, res: Response) => {
-  res.render("result", { url, artWorks });
+  res.render("result", { url, artworks });
 });
 
 export default resultRouter;

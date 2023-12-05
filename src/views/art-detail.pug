@@ -1,5 +1,5 @@
 extends base
-include mixins/art-work
+include mixins/artwork
 
 block content 
     main.artDetail__main 
@@ -16,5 +16,5 @@ block content
         div.artDetail__list
             h1 다른 유사한 작품
             div
-                each artWork in artWorks
-                    +artWork(artWork)
+                each artwork in artworks
+                    +artwork(artwork)

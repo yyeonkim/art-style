@@ -3,7 +3,7 @@ import axios from "axios";
 import fs from "fs";
 import { apiKey } from "../env";
 import { getFiles } from "../db";
-import { IArtWork } from "../types";
+import { IArtwork } from "../types";
 
 const url = "https://classify.roboflow.com/art-style-and-artist-ljptt/1";
 
@@ -57,7 +57,7 @@ async function postRoboflow(data: string) {
 
 /* 각 라벨(클래스)마다 저장소에서 이미지 가져오기 */
 async function getResult(labels: string[]) {
-  const result: IArtWork[] = [];
+  const result: IArtwork[] = [];
 
   for (const label of labels) {
     const files = await getFiles(label);

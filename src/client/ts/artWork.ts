@@ -1,8 +1,8 @@
-const images = document.querySelectorAll(".artWork--small");
+const images = document.querySelectorAll(".artwork");
 const targetImg: HTMLImageElement | null =
   document.querySelector(".target__img");
 
-async function clickArtWork(event: Event) {
+async function clickArtwork(event: Event) {
   event.preventDefault();
   const image = event.target as HTMLImageElement;
 
@@ -15,4 +15,4 @@ async function clickArtWork(event: Event) {
   location.assign(path);
 }
 
-images.forEach((ele) => ele.addEventListener("click", clickArtWork));
+images.forEach((ele) => ele.addEventListener("click", clickArtwork));
