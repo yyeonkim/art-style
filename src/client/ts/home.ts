@@ -34,7 +34,7 @@ function loadImage(artWorks: IArtWork[]) {
     const a = document.createElement("a");
     const img = document.createElement("img");
     a.href = `/art-detail?target=${artWork.url}`;
-    img.className = "artWork--small";
+    img.className = "artWork";
     img.src = artWork.url;
     a.appendChild(img);
     children.push(a);
