@@ -4,6 +4,7 @@ function startLoading() {
 
   const loader = document.createElement("div");
   loader.className = "loader";
+  loader.style.top = `${window.scrollY}px`;
   const spinner = document.createElement("span");
   spinner.className = "spinner";
   loader.appendChild(spinner);
