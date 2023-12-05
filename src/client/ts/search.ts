@@ -12,9 +12,9 @@ async function submitUrl(event: Event) {
 
   if (input) {
     const url = input.value;
-    const data = await postImageUrl(url);
+    const similarArtworks = await postImageUrl(url);
 
-    await passResult(url, data);
+    await postResult(url, similarArtworks);
     endLoading();
     location.assign("/result");
   }
@@ -30,7 +30,7 @@ async function postImageUrl(image: string) {
   return data;
 }
 
-async function passResult(imageUrl: string, result: JSON) {
+async function postResult(imageUrl: string, result: JSON) {
   await fetch("/result", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -44,14 +44,14 @@ async function dropFile(event: DragEvent) {
 
   const file = event.dataTransfer?.files[0];
   const blobUrl = URL.createObjectURL(file as Blob);
-  const data = await postImage(file as File);
+  const similarArtworks = await postImageFile(file as File);
 
-  await passResult(blobUrl, data);
+  await postResult(blobUrl, similarArtworks);
   endLoading();
   location.assign("/result");
 }
 
-async function postImage(image: File) {
+async function postImageFile(image: File) {
   const formData = new FormData();
   formData.append("image", image);
 
