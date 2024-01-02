@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { IArtwork } from "../types";
-import { getResult } from "../controller/searchController";
+import { getSimilarArtwork } from "../controller/artController";
 
 const resultRouter = express.Router();
 
@@ -13,7 +13,7 @@ resultRouter.post("/", async (req: Request, res: Response) => {
 
   // 각 라벨(클래스)마다 저장소에서 이미지 가져오기
   const labels = data.result.predicted_classes;
-  artworks = await getResult(labels);
+  artworks = await getSimilarArtwork(labels);
 
   res.send("ok");
 });
