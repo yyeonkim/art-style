@@ -18,24 +18,32 @@ async function changeCategory() {
     artworks = await getArtwork(LABEL.ROMANTIC);
   }
 
+  window.scrollTo(0, 0);
   loadImage(artworks);
 }
 
 /* 카테고리별 작품 이미지 API 요청 */
 async function getArtwork(category: string): Promise<IArtwork[]> {
-  const res = fetch(`/api/artworks/${category}`);
-  return res.then((res) => res.json());
+  const json = await fetch(`/api/artworks/${category}`).then((res) =>
+    res.json()
+  );
+  return json;
 }
 
 /* 카테고리별로 작품 이미지를 화면에 표시 */
 function loadImage(artworks: IArtwork[]) {
   const children: HTMLElement[] = [];
-  for (const artwork of artworks) {
+
+  for (let i = 0; i < artworks.length; i++) {
     const a = document.createElement("a");
     const img = document.createElement("img");
-    a.href = `/art-detail?target=${artwork.url}`;
+    a.href = `/art-detail?target=${artworks[i].url}`;
     img.className = "artwork";
-    img.src = artwork.url;
+    if (i < 12) img.src = artworks[i].url;
+    else {
+      img.dataset.src = artworks[i].url;
+      img.classList.add("lazy");
+    }
     a.appendChild(img);
     children.push(a);
   }
