@@ -52,4 +52,10 @@ function loadImage(artworks: IArtwork[]) {
   list?.replaceChildren(...children);
 }
 
+/* 해시 주소 제거 */
+function removeHash() {
+  window.location.hash = LABEL.IMPRESSIONIST;
+}
+
 window.addEventListener("hashchange", changeCategory);
+document.addEventListener("readystatechange", removeHash);
