@@ -1,0 +1,13 @@
+extends base
+include mixins/artwork
+
+block content 
+    include partials/category
+
+    main.home__main
+        div.home__list    
+            each artwork in artworks
+                +artwork(artwork)
+
+block scripts 
+    script(src="/js/home.js")

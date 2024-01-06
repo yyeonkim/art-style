@@ -1,0 +1,20 @@
+extends base
+include mixins/artwork
+
+block content 
+    main.artDetail__main 
+        div.target
+            img.target__img(src=url)
+            div.artist
+                div.artist__info
+                    img(src="https://sites.temple.edu/femalebody/files/2020/12/Berthe_Morisot_-_Autoportrait_-_Musee_Marmottan-Monet-245x300.jpg")
+                    div
+                        span.info__name 베르트 모리조
+                        span.info__detail 인상주의 화가 | 팔로워 320명
+                include partials/follow-btn.pug
+
+        div.artDetail__list
+            h1 다른 유사한 작품
+            div
+                each artwork in artworks
+                    +artwork(artwork)

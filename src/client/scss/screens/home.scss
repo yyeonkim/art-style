@@ -1,0 +1,11 @@
+.home__main {
+  display: flex;
+  justify-content: center;
+}
+
+.home__list {
+  display: flex;
+  gap: 2rem;
+  max-width: 124rem;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,33 @@
+// config
+@import "./config/reset.scss";
+@import "./config/variable.scss";
+
+// components
+@import "./components/header.scss";
+@import "./components/category.scss";
+@import "./components/artwork.scss";
+@import "./components/follow-btn.scss";
+@import "./components/loading.scss";
+
+// screens
+@import "./screens/home.scss";
+@import "./screens/search.scss";
+@import "./screens/result.scss";
+@import "./screens/art-detail.scss";
+
+.hidden {
+  visibility: hidden;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px $shadow_color;
+}
+
+html {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+}
+
+body {
+  font-size: $medium_size;
+}

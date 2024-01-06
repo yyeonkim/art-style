@@ -1,0 +1,19 @@
+header {
+  padding: 0 2rem;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+
+  i {
+    cursor: pointer;
+  }
+
+  button {
+    font-weight: 700;
+    font-size: $small_size;
+  }
+}

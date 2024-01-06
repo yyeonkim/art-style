@@ -1,0 +1,35 @@
+.result__main {
+  display: flex;
+
+  .target {
+    background-color: $black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    position: sticky;
+    top: $header_height;
+    left: 0rem;
+    height: calc(100vh - $header_height);
+    gap: 2rem;
+
+    h1 {
+      font-size: $large_size;
+      font-weight: 700;
+      color: white;
+    }
+
+    img {
+      width: 29.5rem;
+    }
+  }
+
+  .list {
+    margin-left: 50rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-left: 2rem;
+  }
+}
