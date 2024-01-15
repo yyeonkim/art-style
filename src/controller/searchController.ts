@@ -20,9 +20,9 @@ async function searchUrl(req: Request, res: Response) {
 }
 
 async function handleUrl(imageUrl: string) {
-  const { arrayBuffer, contentType } = await covertToArrayBuffer(imageUrl);
+  const arrayBuffer = await covertToArrayBuffer(imageUrl);
   const resized = await resizeImage(arrayBuffer, 640, 640);
-  const base64 = await convertToBase64(contentType as string, resized);
+  const base64 = Buffer.from(resized).toString("base64");
 
   return base64;
 }
@@ -40,10 +40,9 @@ async function searchFile(req: Request, res: Response) {
 
 async function covertToArrayBuffer(imageUrl: string) {
   const response = await fetch(imageUrl);
-  const contentType = response.headers.get("content-type");
   const arrayBuffer = await response.arrayBuffer();
 
-  return { arrayBuffer, contentType };
+  return arrayBuffer;
 }
 
 /* 이미지 크기 조정 */
