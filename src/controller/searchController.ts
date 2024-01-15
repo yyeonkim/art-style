@@ -58,10 +58,6 @@ async function resizeImage(
   return result;
 }
 
-async function convertToBase64(contentType: string, buffer: Buffer) {
-  return `data:${contentType};base64,${Buffer.from(buffer).toString("base64")}`;
-}
-
 /**
  * Roboflow API 요청하기
  * @param {string} image base64로 인코딩되어야 함
