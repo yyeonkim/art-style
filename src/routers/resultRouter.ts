@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+
 import { IArtwork } from "../types";
 import { getSimilarArtwork } from "../controller/artController";
 

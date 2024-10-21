@@ -44,7 +44,7 @@ async function dropFile(event: DragEvent) {
 
   const file = event.dataTransfer?.files[0];
   const blobUrl = URL.createObjectURL(file as Blob);
-  const similarArtworks = await postImageFile(file as File);
+  const similarArtworks = await postImageFile(file!);
 
   await postResult(blobUrl, similarArtworks);
   endLoading();

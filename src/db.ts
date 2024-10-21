@@ -1,4 +1,5 @@
 import { Storage, File } from "@google-cloud/storage";
+
 import { ARTIST, CATEGORY } from "./constants";
 import { IArtwork } from "./types";
 import { projectId } from "./env";

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 import sharp, { SharpOptions } from "sharp";
 import fs from "fs";
+
 import { apiKey } from "../env";
 
 const url = "https://classify.roboflow.com/art-style-and-artist-ljptt/1";
@@ -31,7 +32,7 @@ async function handleUrl(imageUrl: string) {
 async function searchFile(req: Request, res: Response) {
   const file = req.file;
   const readFile = fs.readFileSync(`./uploads/${file?.filename}`);
-  const resized = await resizeImage(readFile as Buffer, 640, 640);
+  const resized = await resizeImage(readFile, 640, 640);
   const base64 = Buffer.from(resized).toString("base64");
   const response = await postRoboflow(base64);
 
