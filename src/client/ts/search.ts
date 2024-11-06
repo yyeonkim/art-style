@@ -1,4 +1,4 @@
-import { postImgBlob } from "./api";
+import { postArtwork } from "./api";
 import { endLoading, startLoading } from "./loader";
 
 const form = document.querySelector(".search__form");
@@ -16,25 +16,13 @@ async function submitUrl(event: Event) {
     const blob = await resizeImage(url, 640, 640);
 
     if (!blob) console.error("이미지 없음");
-    console.log(blob);
 
-    const data = await postImgBlob(blob!);
-    console.log("data", data);
+    const result = await postArtwork(blob!);
 
-    // await postResult(url, similarArtworks);
-    // endLoading();
-    // location.assign("/result");
+    await postResult(url, result);
+    endLoading();
+    location.assign("/result");
   }
-}
-
-async function postImageUrl(image: string) {
-  const data = await fetch("/api/search/url", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image }),
-  }).then((res) => res.json());
-
-  return data;
 }
 
 async function postResult(imageUrl: string, result: JSON) {

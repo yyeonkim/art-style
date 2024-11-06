@@ -45,15 +45,6 @@ function renderSearch(req: Request, res: Response) {
   res.render("search");
 }
 
-/* 이미지 주소 검색 */
-async function searchUrl(req: Request, res: Response) {
-  const imageUrl = req.body.image;
-  const base64 = await handleUrl(imageUrl);
-  const response = await postRoboflow(base64);
-
-  res.json(response.data);
-}
-
 async function handleUrl(imageUrl: string) {
   const arrayBuffer = await covertToArrayBuffer(imageUrl);
   const resized = await resizeImage(arrayBuffer, 640, 640);
@@ -128,7 +119,7 @@ async function search(label: LABEL): Promise<IArtwork[]> {
   return artworks;
 }
 
-async function postImgBlob(req: Request, res: Response) {
+async function postArtwork(req: Request, res: Response) {
   const imgBlob = req.body as Buffer;
   const base64 = imgBlob.toString("base64");
   const response = await postRoboflow(base64);
@@ -141,10 +132,9 @@ export {
   getDetail,
   getSimilarArtwork,
   renderSearch,
-  searchUrl,
   searchFile,
   handleUrl,
   postRoboflow,
   search,
-  postImgBlob,
+  postArtwork,
 };

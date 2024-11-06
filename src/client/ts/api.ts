@@ -15,7 +15,7 @@ async function getArtwork(
   return json;
 }
 
-async function postImgBlob(imgBlob: Blob) {
+async function postArtwork(imgBlob: Blob) {
   const data = await fetch("/api/artwork", {
     method: "POST",
     headers: { "Content-Type": "application/octet-stream" },
@@ -25,4 +25,4 @@ async function postImgBlob(imgBlob: Blob) {
   return data;
 }
 
-export { getArtwork, postImgBlob };
+export { getArtwork, postArtwork };
