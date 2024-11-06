@@ -3,6 +3,7 @@ import multer from "multer";
 
 import {
   getSimilarArtwork,
+  postImgBlob,
   search,
   searchFile,
   searchUrl,
@@ -26,6 +27,7 @@ apiRouter.get("/artworks", async (req: Request, res: Response) => {
 
   res.json(artworks);
 });
+apiRouter.post("/artwork", postImgBlob);
 
 apiRouter.post("/search/file", upload.single("image"), searchFile);
 apiRouter.post("/search/url", searchUrl);

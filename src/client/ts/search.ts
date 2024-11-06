@@ -1,3 +1,4 @@
+import { postImgBlob } from "./api";
 import { endLoading, startLoading } from "./loader";
 
 const form = document.querySelector(".search__form");
@@ -12,11 +13,17 @@ async function submitUrl(event: Event) {
 
   if (input) {
     const url = input.value;
-    const similarArtworks = await postImageUrl(url);
+    const blob = await resizeImage(url, 640, 640);
 
-    await postResult(url, similarArtworks);
-    endLoading();
-    location.assign("/result");
+    if (!blob) console.error("이미지 없음");
+    console.log(blob);
+
+    const data = await postImgBlob(blob!);
+    console.log("data", data);
+
+    // await postResult(url, similarArtworks);
+    // endLoading();
+    // location.assign("/result");
   }
 }
 
@@ -65,6 +72,36 @@ async function postImageFile(image: File) {
 
 function handleDragOver(event: Event) {
   event.preventDefault();
+}
+
+function resizeImage(
+  fileOrUrl: File | string,
+  width: number,
+  height: number
+): Promise<Blob | null> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+
+    // 이미지 주소인 경우
+    if (typeof fileOrUrl === "string") img.src = fileOrUrl;
+    // 파일인 경우
+    else img.src = URL.createObjectURL(fileOrUrl as Blob);
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob((blob) => {
+        resolve(blob);
+      }, "image/png");
+    };
+
+    img.onerror = (error) => reject(error);
+  });
 }
 
 form?.addEventListener("submit", submitUrl);

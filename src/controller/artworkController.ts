@@ -128,6 +128,14 @@ async function search(label: LABEL): Promise<IArtwork[]> {
   return artworks;
 }
 
+async function postImgBlob(req: Request, res: Response) {
+  const imgBlob = req.body as Buffer;
+  const base64 = imgBlob.toString("base64");
+  const response = await postRoboflow(base64);
+
+  res.json(response.data);
+}
+
 export {
   renderHome,
   getDetail,
@@ -138,4 +146,5 @@ export {
   handleUrl,
   postRoboflow,
   search,
+  postImgBlob,
 };
