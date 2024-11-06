@@ -2,14 +2,16 @@ import { Request, Response } from "express";
 import axios from "axios";
 import sharp, { SharpOptions } from "sharp";
 import fs from "fs";
+import { File } from "@google-cloud/storage";
 
 import { getFiles } from "../db";
-import { LABEL } from "../constants";
+import { ARTIST, LABEL } from "../constants";
 import { IArtwork } from "../types";
 import { apiKey } from "../env";
+import Artwork from "../model/artwork";
 
 async function getHomeArtWork(req: Request, res: Response) {
-  const artworks = await getFiles(LABEL.IMPRESSIONIST);
+  const artworks = await search(LABEL.IMPRESSIONIST);
 
   res.render("home", { artworks });
 }
@@ -25,11 +27,11 @@ async function getDetail(req: Request, res: Response) {
 }
 
 /* 각 라벨(클래스)마다 저장소에서 이미지 가져오기 */
-async function getSimilarArtwork(labels: string[]) {
+async function getSimilarArtwork(labels: LABEL[]) {
   const result: IArtwork[] = [];
 
   for (const label of labels) {
-    const files = await getFiles(label);
+    const files = await search(label);
     result.push(...files);
   }
 
@@ -108,6 +110,23 @@ async function postRoboflow(image: string) {
   return response;
 }
 
+/* 라벨에 따라 작품 검색 및 반환 */
+async function search(label: LABEL): Promise<IArtwork[]> {
+  const [files] = await getFiles(label);
+
+  const artworks = files.map((file: File) => {
+    return new Artwork({
+      name: file.name,
+      category: label,
+      url: file.publicUrl(),
+      artist: ARTIST.CAMILLE_PISSARRO,
+      label: [label],
+    });
+  });
+
+  return artworks;
+}
+
 export {
   getHomeArtWork,
   getDetail,
@@ -117,4 +136,5 @@ export {
   searchFile,
   handleUrl,
   postRoboflow,
+  search,
 };

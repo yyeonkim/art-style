@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express";
 import multer from "multer";
 
-import { getFiles } from "../db";
 import {
   getSimilarArtwork,
+  search,
   searchFile,
   searchUrl,
 } from "../controller/artworkController";
+import { LABEL } from "../constants";
 
 const apiRouter = express.Router();
 
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 apiRouter.get("/artworks", async (req: Request, res: Response) => {
-  const artworks = await getFiles(req.query.category as string);
+  const artworks = await search(req.query.category as LABEL);
 
   res.json(artworks);
 });

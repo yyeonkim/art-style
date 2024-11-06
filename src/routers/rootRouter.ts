@@ -13,6 +13,9 @@ let artworks: IArtwork[] = [];
 
 rootRouter.get("/", getHomeArtWork);
 rootRouter.get("/search", renderSearch);
+rootRouter.get("/result", (req: Request, res: Response) => {
+  res.render("result", { url, artworks });
+});
 
 rootRouter.post("/result", async (req: Request, res: Response) => {
   const data = req.body;
@@ -23,9 +26,6 @@ rootRouter.post("/result", async (req: Request, res: Response) => {
   artworks = await getSimilarArtwork(labels);
 
   res.send("ok");
-});
-rootRouter.get("/result", (req: Request, res: Response) => {
-  res.render("result", { url, artworks });
 });
 
 export default rootRouter;
