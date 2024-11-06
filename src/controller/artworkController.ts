@@ -123,8 +123,9 @@ async function postArtwork(req: Request, res: Response) {
   const imgBlob = req.body as Buffer;
   const base64 = imgBlob.toString("base64");
   const response = await postRoboflow(base64);
+  const predictedClasses = response.data.predicted_classes;
 
-  res.json(response.data);
+  res.json({ predictedClasses });
 }
 
 export {

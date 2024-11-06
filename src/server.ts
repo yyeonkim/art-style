@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import cors from "cors";
+
 import apiRouter from "./routers/apiRouter";
 import artDetailRouter from "./routers/artDetailRouter";
 import artistRouter from "./routers/artistRouter";
@@ -23,7 +24,7 @@ app.use(
 app.use("/", rootRouter);
 app.use("/api", apiRouter);
 app.use("/artwork", artDetailRouter);
-app.get("/artist", artistRouter);
+app.use("/artist", artistRouter);
 
 app.listen(port, () => {
   console.log(`🎉 Server is listening on port:${port}`);

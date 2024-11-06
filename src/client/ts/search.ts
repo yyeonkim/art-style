@@ -10,26 +10,34 @@ async function submitUrl(event: Event) {
 
   const input: HTMLInputElement | null =
     document.querySelector(".search__input");
+  if (!input) return;
 
-  if (input) {
-    const url = input.value;
-    const blob = await resizeImage(url, 640, 640);
+  const url = input.value;
+  const blob = await resizeImage(url, 640, 640);
+  if (!blob) console.error("이미지 없음");
 
-    if (!blob) console.error("이미지 없음");
-
-    const result = await postArtwork(blob!);
-
-    await postResult(url, result);
-    endLoading();
-    location.assign("/result");
-  }
+  const data = await postArtwork(blob!).then((res) => res.json());
+  // result 뷰에 imgSrc, artworks 데이터 생성
+  await postResult({ imgSrc: url, classes: data.predictedClasses });
+  endLoading();
+  location.assign("/result");
 }
 
-async function postResult(imageUrl: string, result: JSON) {
+/**
+ * result 뷰에 이미지 주소 전달
+ * @param imageUrl
+ */
+async function postResult({
+  imgSrc,
+  classes,
+}: {
+  imgSrc: string;
+  classes: string[];
+}) {
   await fetch("/result", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image: imageUrl, result }),
+    body: JSON.stringify({ image: imgSrc, classes }),
   });
 }
 
@@ -39,9 +47,9 @@ async function dropFile(event: DragEvent) {
 
   const file = event.dataTransfer?.files[0];
   const blobUrl = URL.createObjectURL(file as Blob);
-  const similarArtworks = await postImageFile(file!);
+  await postImageFile(file!);
 
-  await postResult(blobUrl, similarArtworks);
+  //await postResult(blobUrl);
   endLoading();
   location.assign("/result");
 }

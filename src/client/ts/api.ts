@@ -16,13 +16,11 @@ async function getArtwork(
 }
 
 async function postArtwork(imgBlob: Blob) {
-  const data = await fetch("/api/artwork", {
+  return await fetch("/api/artwork", {
     method: "POST",
     headers: { "Content-Type": "application/octet-stream" },
     body: imgBlob,
-  }).then((res) => res.json());
-
-  return data;
+  });
 }
 
 export { getArtwork, postArtwork };
