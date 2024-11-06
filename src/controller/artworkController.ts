@@ -10,6 +10,9 @@ import { IArtwork } from "../types";
 import { apiKey } from "../env";
 import Artwork from "../model/artwork";
 
+const ROBOFLOW_URL =
+  "https://classify.roboflow.com/art-style-and-artist-ljptt/1";
+
 async function renderHome(req: Request, res: Response) {
   const artworks = await search(LABEL.IMPRESSIONIST);
 
@@ -37,8 +40,6 @@ async function getSimilarArtwork(labels: LABEL[]) {
 
   return result;
 }
-
-const url = "https://classify.roboflow.com/art-style-and-artist-ljptt/1";
 
 function renderSearch(req: Request, res: Response) {
   res.render("search");
@@ -99,7 +100,7 @@ async function resizeImage(
 async function postRoboflow(image: string) {
   const response = await axios({
     method: "POST",
-    url,
+    url: ROBOFLOW_URL,
     params: { api_key: apiKey },
     data: image,
     headers: {
