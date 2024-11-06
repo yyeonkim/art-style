@@ -3,8 +3,8 @@ import express, { Request, Response } from "express";
 import {
   getHomeArtWork,
   getSimilarArtwork,
+  renderSearch,
 } from "../controller/artworkController";
-import { renderSearch } from "../controller/searchController";
 import { IArtwork } from "../types";
 
 const rootRouter = express.Router();

@@ -2,8 +2,11 @@ import express, { Request, Response } from "express";
 import multer from "multer";
 
 import { getFiles } from "../db";
-import { searchFile, searchUrl } from "../controller/searchController";
-import { getSimilarArtwork } from "../controller/artworkController";
+import {
+  getSimilarArtwork,
+  searchFile,
+  searchUrl,
+} from "../controller/artworkController";
 
 const apiRouter = express.Router();
 
