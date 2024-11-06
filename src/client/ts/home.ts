@@ -24,7 +24,7 @@ async function changeCategory() {
 
 /* 카테고리별 작품 이미지 API 요청 */
 async function getArtwork(category: string): Promise<IArtwork[]> {
-  const json = await fetch(`/api/artworks/${category}`).then((res) =>
+  const json = await fetch(`/api/artworks?category=${category}`).then((res) =>
     res.json()
   );
   return json;
@@ -37,13 +37,17 @@ function loadImage(artworks: IArtwork[]) {
   for (let i = 0; i < artworks.length; i++) {
     const a = document.createElement("a");
     const img = document.createElement("img");
-    a.href = `/art-detail?target=${artworks[i].url}`;
+    const artwork = artworks[i];
+
+    a.href = `/art-detail?target=${artwork.url}`;
     img.className = "artwork";
-    if (i < 12) img.src = artworks[i].url;
+
+    if (i < 12) img.src = artwork.url;
     else {
-      img.dataset.src = artworks[i].url;
+      img.dataset.src = artwork.url;
       img.classList.add("lazy");
     }
+
     a.appendChild(img);
     children.push(a);
   }
