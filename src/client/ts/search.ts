@@ -1,4 +1,4 @@
-import { postArtwork } from "./api";
+import { postArtwork, postResult } from "./api";
 import { endLoading, startLoading } from "./loader";
 
 const form = document.querySelector(".search__form");
@@ -17,28 +17,9 @@ async function submitUrl(event: Event) {
   if (!blob) console.error("이미지 없음");
 
   const data = await postArtwork(blob!).then((res) => res.json());
-  // result 뷰에 imgSrc, artworks 데이터 생성
   await postResult({ imgSrc: url, classes: data.predictedClasses });
   endLoading();
   location.assign("/result");
-}
-
-/**
- * result 뷰에 이미지 주소 전달
- * @param imageUrl
- */
-async function postResult({
-  imgSrc,
-  classes,
-}: {
-  imgSrc: string;
-  classes: string[];
-}) {
-  await fetch("/result", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image: imgSrc, classes }),
-  });
 }
 
 async function dropFile(event: DragEvent) {
@@ -46,28 +27,14 @@ async function dropFile(event: DragEvent) {
   startLoading();
 
   const file = event.dataTransfer?.files[0];
-  const blobUrl = URL.createObjectURL(file as Blob);
-  await postImageFile(file!);
+  const url = URL.createObjectURL(file as Blob);
+  const blob = await resizeImage(url, 640, 640);
+  if (!blob) console.error("이미지 없음");
 
-  //await postResult(blobUrl);
+  const data = await postArtwork(blob!).then((res) => res.json());
+  await postResult({ imgSrc: url, classes: data.predictedClasses });
   endLoading();
   location.assign("/result");
-}
-
-async function postImageFile(image: File) {
-  const formData = new FormData();
-  formData.append("image", image);
-
-  const data = await fetch("/api/search/file", {
-    method: "POST",
-    body: formData,
-  }).then((res) => res.json());
-
-  return data;
-}
-
-function handleDragOver(event: Event) {
-  event.preventDefault();
 }
 
 function resizeImage(
@@ -102,4 +69,4 @@ function resizeImage(
 
 form?.addEventListener("submit", submitUrl);
 dropZone?.addEventListener("drop", (ev) => dropFile(ev as DragEvent));
-dropZone?.addEventListener("dragover", handleDragOver);
+dropZone?.addEventListener("dragover", (ev) => ev.preventDefault());

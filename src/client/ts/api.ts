@@ -23,4 +23,23 @@ async function postArtwork(imgBlob: Blob) {
   });
 }
 
-export { getArtwork, postArtwork };
+/**
+ * result 뷰에 이미지 주소, 작품 데이터 생성
+ * @param imageUrl 뷰에서 사용할 검색 이미지
+ * @param classes Roboflow 예측 라벨
+ */
+async function postResult({
+  imgSrc,
+  classes,
+}: {
+  imgSrc: string;
+  classes: string[];
+}) {
+  await fetch("/result", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ image: imgSrc, classes }),
+  });
+}
+
+export { getArtwork, postArtwork, postResult };

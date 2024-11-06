@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import axios from "axios";
-import sharp, { SharpOptions } from "sharp";
-import fs from "fs";
 import { File } from "@google-cloud/storage";
 
 import { getFiles } from "../db";
@@ -19,14 +17,15 @@ async function renderHome(req: Request, res: Response) {
   res.render("home", { artworks });
 }
 
-async function getDetail(req: Request, res: Response) {
-  const url = req.query.target;
-  const base64 = await handleUrl(url as string);
-  const response = await postRoboflow(base64 as string);
+async function getArtwork(req: Request, res: Response) {
+  const imgUrl = req.query.target;
+  const arrayBuffer = await covertToArrayBuffer(imgUrl as string);
+  const base64 = Buffer.from(arrayBuffer).toString("base64");
+  const response = await postRoboflow(base64);
   const labels = response.data.predicted_classes;
   const artworks = await getSimilarArtwork(labels);
 
-  res.render("artwork", { url, artworks });
+  res.render("artwork", { imgSrc: imgUrl, artworks });
 }
 
 /* 각 라벨(클래스)마다 저장소에서 이미지 가져오기 */
@@ -45,43 +44,11 @@ function renderSearch(req: Request, res: Response) {
   res.render("search");
 }
 
-async function handleUrl(imageUrl: string) {
-  const arrayBuffer = await covertToArrayBuffer(imageUrl);
-  const resized = await resizeImage(arrayBuffer, 640, 640);
-  const base64 = Buffer.from(resized).toString("base64");
-
-  return base64;
-}
-
-/* 이미지 파일 검색 */
-async function searchFile(req: Request, res: Response) {
-  const file = req.file;
-  const readFile = fs.readFileSync(`./uploads/${file?.filename}`);
-  const resized = await resizeImage(readFile, 640, 640);
-  const base64 = Buffer.from(resized).toString("base64");
-  const response = await postRoboflow(base64);
-
-  res.json(response.data);
-}
-
 async function covertToArrayBuffer(imageUrl: string) {
   const response = await fetch(imageUrl);
   const arrayBuffer = await response.arrayBuffer();
 
   return arrayBuffer;
-}
-
-/* 이미지 크기 조정 */
-async function resizeImage(
-  image: ArrayBuffer | Buffer,
-  width: number,
-  height: number
-) {
-  const result = await sharp(image as SharpOptions)
-    .resize({ width, height, fit: "fill" })
-    .toBuffer();
-
-  return result;
 }
 
 /**
@@ -130,11 +97,9 @@ async function postArtwork(req: Request, res: Response) {
 
 export {
   renderHome,
-  getDetail,
+  getArtwork,
   getSimilarArtwork,
   renderSearch,
-  searchFile,
-  handleUrl,
   postRoboflow,
   search,
   postArtwork,

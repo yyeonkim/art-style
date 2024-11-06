@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import cors from "cors";
 
 import apiRouter from "./routers/apiRouter";
-import artDetailRouter from "./routers/artDetailRouter";
+import artworkRouter from "./routers/artworkRouter";
 import artistRouter from "./routers/artistRouter";
 import rootRouter from "./routers/rootRouter";
 
@@ -23,7 +23,7 @@ app.use(
 
 app.use("/", rootRouter);
 app.use("/api", apiRouter);
-app.use("/artwork", artDetailRouter);
+app.use("/artwork", artworkRouter);
 app.use("/artist", artistRouter);
 
 app.listen(port, () => {
