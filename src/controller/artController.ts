@@ -18,7 +18,7 @@ async function getDetail(req: Request, res: Response) {
   const labels = response.data.predicted_classes;
   const artworks = await getSimilarArtwork(labels);
 
-  res.render("art-detail", { url, artworks });
+  res.render("artwork", { url, artworks });
 }
 
 /* 각 라벨(클래스)마다 저장소에서 이미지 가져오기 */

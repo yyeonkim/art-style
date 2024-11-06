@@ -32,7 +32,7 @@ async function clickArtwork(event: Event) {
 
   // 이미지 url을 art-detail에 get 요청으로 보내기
   const image = event.target as HTMLImageElement;
-  const path = `/art-detail?target=${image.src}`;
+  const path = `/artwork?target=${image.src}`;
 
   await fetch(path);
   // result나 art-detail 화면에서 사용한 url revoke

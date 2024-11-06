@@ -1,5 +1,6 @@
 import { LABEL } from "../../constants";
 import { IArtwork } from "../../types";
+import { getArtwork } from "./api";
 
 async function changeCategory() {
   let artworks: IArtwork[] = [];
@@ -22,14 +23,6 @@ async function changeCategory() {
   loadImage(artworks);
 }
 
-/* 카테고리별 작품 이미지 API 요청 */
-async function getArtwork(category: string): Promise<IArtwork[]> {
-  const json = await fetch(`/api/artworks?category=${category}`).then((res) =>
-    res.json()
-  );
-  return json;
-}
-
 /* 카테고리별로 작품 이미지를 화면에 표시 */
 function loadImage(artworks: IArtwork[]) {
   const children: HTMLElement[] = [];
@@ -39,7 +32,7 @@ function loadImage(artworks: IArtwork[]) {
     const img = document.createElement("img");
     const artwork = artworks[i];
 
-    a.href = `/art-detail?target=${artwork.url}`;
+    a.href = `/artwork?target=${artwork.url}`;
     img.className = "artwork";
 
     if (i < 12) img.src = artwork.url;

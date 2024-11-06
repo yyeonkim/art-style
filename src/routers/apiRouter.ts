@@ -18,8 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 apiRouter.get("/artworks", async (req: Request, res: Response) => {
-  console.log(req.params.category);
-  const artworks = await getFiles(req.params.category);
+  const artworks = await getFiles(req.query.category as string);
 
   res.json(artworks);
 });
