@@ -1,7 +1,6 @@
 import express, { Express } from "express";
 import cors from "cors";
 import apiRouter from "./routers/apiRouter";
-import resultRouter from "./routers/resultRouter";
 import artDetailRouter from "./routers/artDetailRouter";
 import artistRouter from "./routers/artistRouter";
 import rootRouter from "./routers/rootRouter";
@@ -19,7 +18,6 @@ app.use(express.static("dist"));
 
 app.get("/", rootRouter);
 app.use("/api", apiRouter);
-app.use("/result", resultRouter);
 app.use("/artwork", artDetailRouter);
 app.get("/artist", artistRouter);
 

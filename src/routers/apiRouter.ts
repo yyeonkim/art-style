@@ -3,7 +3,7 @@ import multer from "multer";
 
 import { getFiles } from "../db";
 import { searchFile, searchUrl } from "../controller/searchController";
-import { getSimilarArtwork } from "../controller/artController";
+import { getSimilarArtwork } from "../controller/artworkController";
 
 const apiRouter = express.Router();
 

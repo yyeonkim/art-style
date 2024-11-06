@@ -1,5 +1,5 @@
 import express from "express";
-import { getDetail } from "../controller/artController";
+import { getDetail } from "../controller/artworkController";
 
 const artDetailRouter = express.Router();
 
