@@ -10,7 +10,7 @@ import { IArtwork } from "../types";
 import { apiKey } from "../env";
 import Artwork from "../model/artwork";
 
-async function getHomeArtWork(req: Request, res: Response) {
+async function renderHome(req: Request, res: Response) {
   const artworks = await search(LABEL.IMPRESSIONIST);
 
   res.render("home", { artworks });
@@ -128,7 +128,7 @@ async function search(label: LABEL): Promise<IArtwork[]> {
 }
 
 export {
-  getHomeArtWork,
+  renderHome,
   getDetail,
   getSimilarArtwork,
   renderSearch,

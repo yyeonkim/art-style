@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 
 import {
-  getHomeArtWork,
+  renderHome,
   getSimilarArtwork,
   renderSearch,
 } from "../controller/artworkController";
@@ -11,7 +11,7 @@ const rootRouter = express.Router();
 let url = "";
 let artworks: IArtwork[] = [];
 
-rootRouter.get("/", getHomeArtWork);
+rootRouter.get("/", renderHome);
 rootRouter.get("/search", renderSearch);
 rootRouter.get("/result", (req: Request, res: Response) => {
   res.render("result", { url, artworks });
