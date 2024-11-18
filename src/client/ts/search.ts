@@ -1,3 +1,4 @@
+import { postArtwork, postResult } from "./api";
 import { endLoading, startLoading } from "./loader";
 
 const form = document.querySelector(".search__form");
@@ -9,33 +10,16 @@ async function submitUrl(event: Event) {
 
   const input: HTMLInputElement | null =
     document.querySelector(".search__input");
+  if (!input) return;
 
-  if (input) {
-    const url = input.value;
-    const similarArtworks = await postImageUrl(url);
+  const url = input.value;
+  const blob = await resizeImage(url, 640, 640);
+  if (!blob) console.error("이미지 없음");
 
-    await postResult(url, similarArtworks);
-    endLoading();
-    location.assign("/result");
-  }
-}
-
-async function postImageUrl(image: string) {
-  const data = await fetch("/api/search/url", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image }),
-  }).then((res) => res.json());
-
-  return data;
-}
-
-async function postResult(imageUrl: string, result: JSON) {
-  await fetch("/result", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image: imageUrl, result }),
-  });
+  const data = await postArtwork(blob!).then((res) => res.json());
+  await postResult({ imgSrc: url, classes: data.predictedClasses });
+  endLoading();
+  location.assign("/result");
 }
 
 async function dropFile(event: DragEvent) {
@@ -43,30 +27,46 @@ async function dropFile(event: DragEvent) {
   startLoading();
 
   const file = event.dataTransfer?.files[0];
-  const blobUrl = URL.createObjectURL(file as Blob);
-  const similarArtworks = await postImageFile(file as File);
+  const url = URL.createObjectURL(file as Blob);
+  const blob = await resizeImage(url, 640, 640);
+  if (!blob) console.error("이미지 없음");
 
-  await postResult(blobUrl, similarArtworks);
+  const data = await postArtwork(blob!).then((res) => res.json());
+  await postResult({ imgSrc: url, classes: data.predictedClasses });
   endLoading();
   location.assign("/result");
 }
 
-async function postImageFile(image: File) {
-  const formData = new FormData();
-  formData.append("image", image);
+function resizeImage(
+  fileOrUrl: File | string,
+  width: number,
+  height: number
+): Promise<Blob | null> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
 
-  const data = await fetch("/api/search/file", {
-    method: "POST",
-    body: formData,
-  }).then((res) => res.json());
+    // 이미지 주소인 경우
+    if (typeof fileOrUrl === "string") img.src = fileOrUrl;
+    // 파일인 경우
+    else img.src = URL.createObjectURL(fileOrUrl as Blob);
 
-  return data;
-}
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0, width, height);
 
-function handleDragOver(event: Event) {
-  event.preventDefault();
+      canvas.toBlob((blob) => {
+        resolve(blob);
+      }, "image/png");
+    };
+
+    img.onerror = (error) => reject(error);
+  });
 }
 
 form?.addEventListener("submit", submitUrl);
 dropZone?.addEventListener("drop", (ev) => dropFile(ev as DragEvent));
-dropZone?.addEventListener("dragover", handleDragOver);
+dropZone?.addEventListener("dragover", (ev) => ev.preventDefault());
