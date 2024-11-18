@@ -7,7 +7,7 @@ const dropZone = document.querySelector(".dropZone");
 async function submitUrl(event: Event) {
   event.preventDefault();
   startLoading();
-  console.time("submitUrl");
+
   const input: HTMLInputElement | null =
     document.querySelector(".search__input");
   if (!input) return;
@@ -18,7 +18,6 @@ async function submitUrl(event: Event) {
 
   const data = await postArtwork(blob!).then((res) => res.json());
   await postResult({ imgSrc: url, classes: data.predictedClasses });
-  console.timeEnd("submitUrl");
   endLoading();
   location.assign("/result");
 }
@@ -26,7 +25,7 @@ async function submitUrl(event: Event) {
 async function dropFile(event: DragEvent) {
   event.preventDefault();
   startLoading();
-  console.time("dropFile");
+
   const file = event.dataTransfer?.files[0];
   const url = URL.createObjectURL(file as Blob);
   const blob = await resizeImage(url, 640, 640);
@@ -34,7 +33,6 @@ async function dropFile(event: DragEvent) {
 
   const data = await postArtwork(blob!).then((res) => res.json());
   await postResult({ imgSrc: url, classes: data.predictedClasses });
-  console.timeEnd("dropFile");
   endLoading();
   location.assign("/result");
 }
